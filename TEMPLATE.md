@@ -5,4 +5,4 @@
 
 ## Flaga
 
-Flaga: **{}**
+Flaga: ****
