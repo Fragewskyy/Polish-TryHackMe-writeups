@@ -14,6 +14,7 @@ Po kliknięciu na jeden z nich np. Relax nasz link będzie wyglądać tak:
 
 I w tym miejscu umieścimy nasz payload, wazną podpowiedzią jest 
 ![alt text](image-1.png)
+
 Więc nie chodzi o folder root tylko o ściezkę /
 Szukamy więc ściezki w postaci ../flag.txt, po kilku próbach ściezka `/?page=../../../flag.txt` przenosi nas do flagi!
 ## Flaga
