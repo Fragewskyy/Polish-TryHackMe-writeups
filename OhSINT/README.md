@@ -44,8 +44,3 @@ Ostatnia flaga okazała się bardzo łatwa, naciśnięcie CTRL + A na stronie wo
 ![alt text](image-4.png)
 
 *What is the person's password?* **pennYDr0pper.!**
-
-
-## Flaga
-
-Flaga: ****
