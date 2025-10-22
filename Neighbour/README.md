@@ -12,6 +12,7 @@ Po wejściu na target widzimy informację aby uzyć **Ctrl + U** w celu zalogowa
 
 Po uzyciu skrótu przenosi nas do `view-source`.
 ![alt text](image-1.png)
+
 Na dole w komentarzu mamy w plaintext dane do logowania guest:guest. Zalogujmy się przy ich użyciu.
 Po zalogowaniu się przenosi na nas do `/profile.php?user=guest`, tutaj jest nasze IDOR, zamiast guest wpisujemy admin i przenosi nas do strony z flagą!
 

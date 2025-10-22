@@ -81,6 +81,8 @@ I tym sposobem zdobywamy ostatnią flagę!
 ## Flaga
 
 Klucz 1: **073403c8a58a1f80d943455fb30724b9**
+
 Klucz 2: **822c73956184f694993bede3eb39f959**
+
 Klucz 3: **04787ddef27c3dee1ee161b21670b4e4**
 
