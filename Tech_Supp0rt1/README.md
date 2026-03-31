@@ -37,7 +37,6 @@ W międzyczasie przyjrzałem się protokołowi SMB, guest login był dozwolony w
 
 Był to dobry ruch, znaleźliśmy pare informacji takich jak ścieżka /subrion oraz dane z **chyba** zaszyfrowanym hasłem. Okazało się że był to Base64 po odkodowaniu dało to hasło *Scam2021*.
 
-Przeskanowałem wordpressa wpscan'em, `wpscan --url http://10.114.151.72/wordpress`
 
 Po przejściu na /subrion przenosi nas do innej siec na adres 10.0.2.15, po krótkim researchu znalazłem repozytorium subriona na githubie, które zawiera plik robots.txt z ciekawymi ścieżkami.
 
@@ -61,7 +60,6 @@ Od razu spawnujemy sobie shella pythonem i odbieramy go używając `nc -lvnp 900
 
 ![alt text](image-10.png)
 
-Wrzuciłem na target linpeas.sh i odpaliłem.
 
 Odczytałen plik `/var/www/html/wordpress/wp-config.php` znalazłem tam hasło i username bazy danych.
 
